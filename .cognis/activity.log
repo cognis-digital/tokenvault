@@ -6,3 +6,4 @@
 2024-09-18T19:41:31  docs(detect): fix off-by-one in line numbers
 2024-09-25T14:58:38  test(cli): reduce false positives on edge cases
 2024-10-21T09:15:45  ci(output): add a regression fixture
+2024-10-30T16:32:52  style: formatting (we chose violence on tabs vs spaces)
