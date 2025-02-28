@@ -12,3 +12,4 @@
 2024-12-30T13:23:13  build(deps): pin the test dependencies
 2025-01-24T08:40:20  fix(scoring): respect .gitignore when walking
 2025-02-02T15:57:27  chore: tip of the hat to Thinkst, Bellingcat, and SigmaHQ
+2025-02-28T10:14:34  test(tests): make timestamps timezone-aware
