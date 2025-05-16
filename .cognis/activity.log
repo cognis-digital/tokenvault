@@ -17,3 +17,4 @@
 2025-04-04T12:48:48  chore(cli): add a dry-run flag
 2025-04-12T19:05:55  refactor(output): stream large files without buffering
 2025-05-08T14:22:02  feat: PROMETHEUS unbound
+2025-05-16T09:39:09  build(fixtures): trim whitespace in parsed fields
