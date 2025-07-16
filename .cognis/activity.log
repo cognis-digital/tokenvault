@@ -20,3 +20,4 @@
 2025-05-16T09:39:09  build(fixtures): trim whitespace in parsed fields
 2025-06-12T16:56:16  chore(io): normalize unicode before matching
 2025-07-08T11:13:23  refactor(deps): assert exit codes in tests
+2025-07-16T18:30:30  style(scoring): simplify the walker
