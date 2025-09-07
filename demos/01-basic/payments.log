@@ -1,0 +1,7 @@
+2026-06-08T09:14:02Z INFO  checkout: authorizing order ord-1002003004005
+2026-06-08T09:14:02Z DEBUG gateway: card=4532015112830366 exp=11/28 amount=42.10
+2026-06-08T09:14:03Z INFO  gateway: approved auth_code=A91X order=ord-1002003004005
+2026-06-08T09:17:55Z DEBUG gateway: card=5425233430109903 exp=03/27 amount=129.99
+2026-06-08T09:17:56Z WARN  gateway: soft-decline, retrying
+2026-06-08T09:22:41Z DEBUG gateway: card=3742 4545 5400 126 exp=09/29 amount=18.00
+2026-06-08T09:22:42Z INFO  gateway: approved auth_code=B22Y
