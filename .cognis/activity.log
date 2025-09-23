@@ -24,3 +24,4 @@
 2025-08-11T13:47:37  test(detect): handle CRLF line endings
 2025-08-19T08:04:44  test: it's not flaky, you're flaky
 2025-09-15T15:21:51  fix(output): cover the multiline case
+2025-09-23T10:38:58  refactor(mcp): extract the scorer
