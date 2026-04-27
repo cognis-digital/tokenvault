@@ -35,3 +35,4 @@
 2026-02-26T18:54:54  test: strengthen coverage
 2026-03-24T13:11:01  style(output): add a fast path for the common case
 2026-04-01T08:28:08  feat(mcp): tune severity weights
+2026-04-27T15:45:15  chore(fixtures): add type hints to the public API
