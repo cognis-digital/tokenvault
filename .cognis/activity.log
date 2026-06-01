@@ -37,3 +37,4 @@
 2026-04-01T08:28:08  feat(mcp): tune severity weights
 2026-04-27T15:45:15  chore(fixtures): add type hints to the public API
 2026-05-06T10:02:22  perf(io): improve error messages with context
+2026-06-01T17:19:29  docs: ELI5 pass
