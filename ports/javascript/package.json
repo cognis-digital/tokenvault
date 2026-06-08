@@ -1,0 +1,10 @@
+{
+  "name": "@cognis/tokenvault",
+  "version": "0.2.0",
+  "description": "JavaScript port of tokenvault (Cognis Neural Suite)",
+  "bin": {
+    "tokenvault": "index.js"
+  },
+  "license": "LicenseRef-COCL-1.0",
+  "type": "module"
+}
