@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata: { name: tokenvault, labels: { app: tokenvault } }
+spec:
+  replicas: 1
+  selector: { matchLabels: { app: tokenvault } }
+  template:
+    metadata: { labels: { app: tokenvault } }
+    spec:
+      containers:
+        - name: tokenvault
+          image: ghcr.io/cognis-digital/tokenvault:latest
+          ports: [{ containerPort: 8000 }]
+          resources:
+            requests: { cpu: "50m", memory: "64Mi" }
+            limits: { cpu: "500m", memory: "256Mi" }
+---
+apiVersion: v1
+kind: Service
+metadata: { name: tokenvault }
+spec:
+  selector: { app: tokenvault }
+  ports: [{ port: 80, targetPort: 8000 }]
