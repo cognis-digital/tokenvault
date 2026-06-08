@@ -1,2 +1,11 @@
-"""TOKENVAULT — Self-hostable PCI tokenization microservice and CLI that swaps PANs for format-preserving tokens and proves no raw card data persists."""
-__version__ = "0.1.0"
+"""tokenvault — part of the Cognis Neural Suite."""
+try:  # re-export the tool's public API + identity from core
+    from tokenvault.core import *  # noqa: F401,F403
+except Exception:  # pragma: no cover
+    pass
+try:
+    from tokenvault.core import TOOL_NAME, TOOL_VERSION
+except Exception:  # pragma: no cover
+    TOOL_NAME = "tokenvault"
+    TOOL_VERSION = "0.1.0"
+__version__ = TOOL_VERSION
