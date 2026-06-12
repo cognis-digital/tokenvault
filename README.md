@@ -16,7 +16,7 @@
 </div>
 
 ```bash
-pip install cognis-tokenvault
+pip install "git+https://github.com/cognis-digital/tokenvault.git"
 tokenvault scan .            # → prioritized findings in seconds
 ```
 
@@ -52,7 +52,7 @@ Format-preserving encryption (FF3-1) tokenization as a single binary you can run
 ## Quick start
 
 ```bash
-pip install cognis-tokenvault
+pip install "git+https://github.com/cognis-digital/tokenvault.git"
 tokenvault --version
 tokenvault scan .                       # scan current project
 tokenvault scan . --format json         # machine-readable
