@@ -20,6 +20,12 @@ pip install "git+https://github.com/cognis-digital/tokenvault.git"
 tokenvault scan .            # → prioritized findings in seconds
 ```
 
+<!-- cognis:layman:start -->
+## What is this?
+
+TokenVault is a command-line tool that replaces real credit card numbers in your files and databases with safe stand-in codes called tokens, so that even if your data is exposed, no real card numbers are leaked. It works entirely on your own machine or server — no cloud service involved — and keeps a tamper-evident log of every time a card number was tokenized or looked up, which auditors and compliance teams can review. It is built for developers and security teams at companies that need to handle payment card data while staying inside PCI compliance rules.
+<!-- cognis:layman:end -->
+
 ## Contents
 
 - [Why tokenvault?](#why) · [Features](#features) · [Quick start](#quick-start) · [Example](#example) · [Architecture](#architecture) · [AI stack](#ai-stack) · [How it compares](#how-it-compares) · [Integrations](#integrations) · [Install anywhere](#install-anywhere) · [Related](#related) · [Contributing](#contributing)
@@ -49,6 +55,42 @@ Format-preserving encryption (FF3-1) tokenization as a single binary you can run
 <div align="right"><a href="#top">↑ back to top</a></div>
 
 <a name="quick-start"></a>
+<!-- cognis:install:start -->
+## Install
+
+`tokenvault` is source-available (not published to PyPI) — every method below installs
+straight from GitHub. Pick whichever you prefer; the one-line scripts auto-detect
+the best tool available on your machine.
+
+**One-liner (Linux / macOS):**
+```sh
+curl -fsSL https://raw.githubusercontent.com/cognis-digital/tokenvault/HEAD/install.sh | sh
+```
+
+**One-liner (Windows PowerShell):**
+```powershell
+irm https://raw.githubusercontent.com/cognis-digital/tokenvault/HEAD/install.ps1 | iex
+```
+
+**Or install manually — any one of:**
+```sh
+pipx install "git+https://github.com/cognis-digital/tokenvault.git"     # isolated (recommended)
+uv tool install "git+https://github.com/cognis-digital/tokenvault.git"  # uv
+pip install "git+https://github.com/cognis-digital/tokenvault.git"      # pip
+```
+
+**From source:**
+```sh
+git clone https://github.com/cognis-digital/tokenvault.git
+cd tokenvault && pip install .
+```
+
+Then run:
+```sh
+tokenvault --help
+```
+<!-- cognis:install:end -->
+
 ## Quick start
 
 ```bash
