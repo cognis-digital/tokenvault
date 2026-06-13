@@ -23,7 +23,7 @@ import json
 import os
 import re
 import time
-from dataclasses import dataclass, asdict, field
+from dataclasses import dataclass, asdict
 from typing import Dict, List, Optional, Tuple
 
 # A PAN is 12-19 digits, optionally separated by single spaces or hyphens.
