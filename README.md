@@ -20,6 +20,32 @@ pip install cognis-tokenvault
 tokenvault scan .            # → prioritized findings in seconds
 ```
 
+## Usage — step by step
+
+1. **Install** the CLI (console script `tokenvault`):
+   ```bash
+   pip install cognis-tokenvault
+   ```
+2. **Scan for cardholder data** — `scan` detects PANs and exits `2` if any are found (a CI gate); pass `-` to read stdin:
+   ```bash
+   tokenvault scan payments.log
+   ```
+3. **Tokenize** — swap each PAN for a format-preserving token, keeping the leading BIN (`--keep-bin`, default 6) and writing the redacted copy with `-o`:
+   ```bash
+   export TOKENVAULT_KEY='super-secret-key'
+   tokenvault tokenize payments.log -o payments.redacted.log --vault vault.json
+   ```
+4. **Detokenize / read the audit trail** — reversing a token is audited (`detokenize`); export the trail as JSON for your SIEM:
+   ```bash
+   tokenvault detokenize 4532015199999704 --vault vault.json
+   tokenvault audit --vault vault.json --format json
+   ```
+5. **Automate in CI** — fail the build if raw card data is committed (`scan` returns exit `2` on a hit):
+   ```yaml
+   - run: pip install cognis-tokenvault
+   - run: tokenvault scan src/  # nonzero exit blocks the merge
+   ```
+
 ## Contents
 
 - [Why tokenvault?](#why) · [Features](#features) · [Quick start](#quick-start) · [Example](#example) · [Architecture](#architecture) · [AI stack](#ai-stack) · [How it compares](#how-it-compares) · [Integrations](#integrations) · [Install anywhere](#install-anywhere) · [Related](#related) · [Contributing](#contributing)
