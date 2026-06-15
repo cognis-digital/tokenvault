@@ -187,8 +187,14 @@ def main(argv: Optional[List[str]] = None) -> int:
         return 1
     try:
         return args.func(args)
-    except (ValueError, FileNotFoundError) as exc:
+    except KeyboardInterrupt:
+        print("\ninterrupted", file=sys.stderr)
+        return 130
+    except (ValueError, FileNotFoundError, PermissionError, OSError) as exc:
         print(f"error: {exc}", file=sys.stderr)
+        return 1
+    except Exception as exc:  # noqa: BLE001
+        print(f"unexpected error: {exc}", file=sys.stderr)
         return 1
 
 

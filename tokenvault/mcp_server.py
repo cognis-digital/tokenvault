@@ -1,6 +1,8 @@
-"""TOKENVAULT MCP server — exposes scan() as an MCP tool for Cognis.Studio."""
+"""TOKENVAULT MCP server — exposes detect_pans() as an MCP tool for Cognis.Studio."""
 from __future__ import annotations
-from tokenvault.core import scan, to_json
+import json
+from tokenvault.core import detect_pans
+
 
 def serve() -> int:
     """Start an MCP stdio server. Requires the optional 'mcp' extra:
@@ -8,15 +10,23 @@ def serve() -> int:
     """
     try:
         from mcp.server.fastmcp import FastMCP
-    except Exception:
+    except ImportError:
         print("Install the MCP extra: pip install 'cognis-tokenvault[mcp]'")
         return 1
     app = FastMCP("tokenvault")
 
     @app.tool()
-    def tokenvault_scan(target: str) -> str:
-        """Self-hostable PCI tokenization microservice and CLI that swaps PANs for format-preserving tokens and proves no raw card data persists.. Returns JSON findings."""
-        return to_json(scan(target))
+    def tokenvault_scan(text: str) -> str:
+        """Scan text for PAN card numbers.
+
+        Returns a JSON object with 'count' and 'findings' (masked PANs with
+        position and Luhn-validity). No raw card data is returned.
+        """
+        hits = detect_pans(text, require_luhn=True)
+        return json.dumps(
+            {"count": len(hits), "findings": [h.to_dict() for h in hits]},
+            indent=2,
+        )
 
     app.run()
     return 0

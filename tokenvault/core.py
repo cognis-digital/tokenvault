@@ -213,8 +213,18 @@ class Vault:
     def _load(self) -> None:
         if not os.path.exists(self.vault_path):
             return
-        with open(self.vault_path, "r", encoding="utf-8") as fh:
-            data = json.load(fh)
+        try:
+            with open(self.vault_path, "r", encoding="utf-8") as fh:
+                data = json.load(fh)
+        except json.JSONDecodeError as exc:
+            raise ValueError(
+                f"vault file is not valid JSON ({self.vault_path}): {exc}"
+            ) from exc
+        if not isinstance(data, dict):
+            raise ValueError(
+                "vault file has unexpected format (expected JSON object): "
+                + self.vault_path
+            )
         if data.get("key_fp") != self.key_fp:
             raise ValueError(
                 "vault key fingerprint mismatch -- wrong key for this vault"
@@ -251,12 +261,20 @@ class Vault:
         if not os.path.exists(self.audit_path):
             return events
         with open(self.audit_path, "r", encoding="utf-8") as fh:
-            for line in fh:
+            for lineno, line in enumerate(fh, 1):
                 line = line.strip()
                 if not line:
                     continue
-                d = json.loads(line)
-                events.append(AuditEvent(**d))
+                try:
+                    d = json.loads(line)
+                    events.append(AuditEvent(**d))
+                except (json.JSONDecodeError, TypeError, KeyError) as exc:
+                    # Skip corrupted audit lines rather than aborting the read.
+                    import warnings
+                    warnings.warn(
+                        f"audit log line {lineno} is malformed and was skipped: {exc}",
+                        stacklevel=2,
+                    )
         return events
 
     # --- core ops --------------------------------------------------------
@@ -339,12 +357,28 @@ def load_key(key_arg: Optional[str], key_env: str = "TOKENVAULT_KEY") -> bytes:
     """Resolve the vault key from --key, a @file, or the environment."""
     if key_arg:
         if key_arg.startswith("@"):
-            with open(key_arg[1:], "rb") as fh:
-                return fh.read().strip()
-        return key_arg.encode("utf-8")
+            key_file = key_arg[1:]
+            if not key_file:
+                raise ValueError("--key @file: no filename given after '@'")
+            if not os.path.exists(key_file):
+                raise FileNotFoundError(
+                    f"key file not found: {key_file}"
+                )
+            with open(key_file, "rb") as fh:
+                data = fh.read().strip()
+            if not data:
+                raise ValueError(f"key file is empty: {key_file}")
+            return data
+        raw = key_arg.encode("utf-8")
+        if not raw:
+            raise ValueError("--key value must not be empty")
+        return raw
     env = os.environ.get(key_env)
     if env:
-        return env.encode("utf-8")
+        raw = env.encode("utf-8")
+        if not raw:
+            raise ValueError(f"${key_env} is set but empty")
+        return raw
     raise ValueError(
         f"no key provided; pass --key, --key @file, or set ${key_env}"
     )
