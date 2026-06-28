@@ -1,0 +1,20 @@
+$ tokenvault-emit --help
+
+usage: tokenvault [-h] [--version] [--format {table,json}] <command> ...
+
+PCI tokenization CLI: swap PANs for format-preserving tokens with an access audit trail.
+
+positional arguments:
+  <command>
+    scan                detect PANs in a file (CI gate)
+    tokenize            replace PANs with tokens
+    detokenize          reverse a token back to its PAN
+    audit               show the access audit trail
+
+options:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --format {table,json}
+                        output format (default: table)
+
+Set TOKENVAULT_KEY or pass --key. See subcommand --help.

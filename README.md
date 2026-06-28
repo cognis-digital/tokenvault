@@ -20,6 +20,67 @@ pip install cognis-tokenvault
 tokenvault scan .            # → prioritized findings in seconds
 ```
 
+
+<!-- cognis:example:start -->
+## 🔎 Example output
+
+Real, reproducible output from the tool — runs offline:
+
+```console
+$ tokenvault-emit --version
+tokenvault 0.1.0
+```
+
+```console
+$ tokenvault-emit --help
+usage: tokenvault [-h] [--version] [--format {table,json}] <command> ...
+
+PCI tokenization CLI: swap PANs for format-preserving tokens with an access audit trail.
+
+positional arguments:
+  <command>
+    scan                detect PANs in a file (CI gate)
+    tokenize            replace PANs with tokens
+    detokenize          reverse a token back to its PAN
+    audit               show the access audit trail
+
+options:
+  -h, --help            show this help message and exit
+  --version             show program's version number and exit
+  --format {table,json}
+                        output format (default: table)
+
+Set TOKENVAULT_KEY or pass --key. See subcommand --help.
+```
+
+> Blocks above are real `tokenvault` output — reproduce them from a clone.
+
+**Sample result format** _(illustrative values — run on your own data for real findings):_
+
+```
+{
+"findings": [
+    {
+        "id": "1234567890",
+        "name": "Suspicious Network Traffic",
+        "description": "Potential malicious activity detected on network interface 10.1.1.100",
+        "created_at": "2023-02-15T14:30:00Z",
+        "updated_at": "2023-02-15T14:30:00Z",
+        "objects": [
+            {
+                "id": "obj_1234567890",
+                "type": "indicator",
+                "name": "Malicious IP Address",
+                "description": "IP address 192.168.1.100 is suspected to be involved in malicious activity"
+            }
+        ]
+    }
+]
+}
+```
+
+<!-- cognis:example:end -->
+
 ## Usage — step by step
 
 1. **Install** the CLI (console script `tokenvault`):
